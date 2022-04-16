@@ -1,5 +1,5 @@
-function start() {
-    document.getElementById('video_obj').play();
+function clickBtn() {
+    document.getElementById('start-btn').click();
 }
 
 function setClock() {
@@ -10,7 +10,7 @@ function setClock() {
     const hour = modifyNumber(dateInfo.getHours());
     const min = modifyNumber(dateInfo.getMinutes());
     const year = dateInfo.getFullYear();
-    const month = dateInfo.getMonth() + 1; //monthIndex를 반환해주기 때문에 1을 더해준다.
+    const month = dateInfo.getMonth() + 1;
     const date = dateInfo.getDate();
     
     time_div.innerHTML = `${hour}<span class='blink'>:</span>${min}`;
@@ -27,5 +27,3 @@ window.onload = () => {
     setClock();
     setInterval(setClock, 1000);
 }
-
-start();
