@@ -1,7 +1,7 @@
-FROM node
+FROM node:14-alpine
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY ./package* /usr/src/app/
 RUN npm install
-COPY . .
+COPY . /usr/src/app
 EXPOSE 3000
 CMD [ "node", "index.js" ]
