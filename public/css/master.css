@@ -53,5 +53,5 @@ video {
 }
 
 .blink {
-    animation: blink-effect 1s ease-in-out infinite;
+    animation: blink-effect 1.5s ease-in-out infinite;
 }

@@ -2,19 +2,60 @@ function clickBtn() {
     document.getElementById('start-btn').click();
 }
 
-function setClock() {
-    const time_div = document.getElementById('time');
-    const date_div = document.getElementById('date');
+const setClockDiv = () => {
+    const timeDiv = document.querySelector('#time-div');
+    const dateDiv = document.querySelector('#date-div');
 
-    const dateInfo = new Date(); 
-    const hour = modifyNumber(dateInfo.getHours());
-    const min = modifyNumber(dateInfo.getMinutes());
-    const year = dateInfo.getFullYear();
-    const month = dateInfo.getMonth() + 1;
-    const date = dateInfo.getDate();
-    
-    time_div.innerHTML = `${hour}<span class='blink'>:</span>${min}`;
-    date_div.innerHTML = `${year} ${month} ${date}`;
+    timeDiv.innerHTML = `
+        <span id="hours"></span>
+        <span class="blink">:</span>
+        <span id="minutes"></span>
+    `;
+
+    dateDiv.innerHTML = `
+        <span id="year"></span>
+        &nbsp;
+        <span id="month"></span>
+        &nbsp;
+        <span id="date"></span>
+    `;
+}
+
+const watchClock = () => {
+    function leftPad(number) {
+        if (number < 10) {
+            return `0${number}`;
+        }
+
+        return `${number}`;
+    };
+
+    function setText(selector, text) {
+        const targetElement = document.querySelector(selector);
+
+        if (!targetElement) {
+            return;
+        }
+
+        targetElement.innerText = text;
+    };
+
+    const present = new Date();
+
+    const hour = leftPad(present.getHours());
+    const minute = leftPad(present.getMinutes());
+    const seconds = leftPad(present.getSeconds());
+
+    setText('#hours', hour);
+    setText('#minutes', minute);
+
+    const year = present.getFullYear();
+    const month = leftPad(present.getMonth() + 1);
+    const date = leftPad(present.getDate());
+
+    setText('#year', year);
+    setText('#month', month);
+    setText('#date', date);
 }
 
 function muteController() {
@@ -31,14 +72,9 @@ function muteController() {
     });
 }
 
-function modifyNumber(time) {
-    if (parseInt(time) < 10){
-        return `0${time}`;
-    } else return time;
-}
-
 window.onload = () => {
-    setClock();
+    setClockDiv();
+    watchClock();
     muteController();
-    setInterval(setClock, 1000);
+    setInterval(watchClock, 1000);
 }
